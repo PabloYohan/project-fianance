@@ -66,14 +66,14 @@
 ## Etapa 1.1 — CRUD de categorias
 **Entrega:** categorias como Alimentação, Transporte e Salário.
 
-- [ ] Criar modelo de categoria com ID, nome, tipo e status ativo.
-- [ ] Cadastrar categoria.
-- [ ] Listar categorias.
-- [ ] Consultar categoria pelo ID.
-- [ ] Editar nome e status.
-- [ ] Definir comportamento para exclusão (preferir desativação quando estiver em uso).
-- [ ] Rejeitar nome vazio e tipo inválido.
-- [ ] Verificar categoria inexistente.
+- [X] Criar modelo de categoria com ID, nome, tipo e status ativo.
+- [X] Cadastrar categoria.
+- [X] Listar categorias.
+- [X] Consultar categoria pelo ID.
+- [X] Editar nome e status.
+- [X] Definir comportamento para exclusão (preferir desativação quando estiver em uso).
+- [X] Rejeitar nome vazio e tipo inválido.
+- [X] Verificar categoria inexistente.
 
 **Aprendizado:** CRUD, identificadores, validação e ciclo de vida de entidades.
 

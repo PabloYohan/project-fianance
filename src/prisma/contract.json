@@ -12,6 +12,21 @@
   "domain": {
     "namespaces": {
       "public": {
+        "enum": {
+          "CategoryType": {
+            "codecId": "pg/text@1",
+            "members": [
+              {
+                "name": "INCOME",
+                "value": "INCOME"
+              },
+              {
+                "name": "EXPENSE",
+                "value": "EXPENSE"
+              }
+            ]
+          }
+        },
         "models": {
           "Category": {
             "fields": {
@@ -41,6 +56,12 @@
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
+                },
+                "valueSet": {
+                  "entityKind": "enum",
+                  "entityName": "CategoryType",
+                  "namespaceId": "public",
+                  "plane": "domain"
                 }
               }
             },
@@ -74,6 +95,13 @@
         "entries": {
           "table": {
             "Category": {
+              "checks": [
+                {
+                  "expression": "\"type\" IN ('INCOME', 'EXPENSE')",
+                  "name": "Category_type_check_5d925dfc",
+                  "prefix": "Category_type_check"
+                }
+              ],
               "columns": {
                 "active": {
                   "codecId": "pg/bool@1",
@@ -101,7 +129,13 @@
                 "type": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
-                  "nullable": false
+                  "nullable": false,
+                  "valueSet": {
+                    "entityKind": "valueSet",
+                    "entityName": "CategoryType",
+                    "namespaceId": "public",
+                    "plane": "storage"
+                  }
                 }
               },
               "foreignKeys": [],
@@ -113,13 +147,22 @@
               },
               "uniques": []
             }
+          },
+          "valueSet": {
+            "CategoryType": {
+              "kind": "valueSet",
+              "values": [
+                "INCOME",
+                "EXPENSE"
+              ]
+            }
           }
         },
         "id": "public",
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "e9b60a8f6991d3a8b27696bc742d25651aa800aa5c205df32d613558d0437d71"
+    "storageHash": "36c50f27d9544ab03c5aedce94d2bb345f17b715a579e093d8e4cda7f0393405"
   },
   "capabilities": {
     "postgres": {

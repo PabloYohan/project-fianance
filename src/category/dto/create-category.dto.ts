@@ -1,13 +1,13 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { CategoryType } from "../enums/CategoryType.js";
 
 export class CreateCategoryDto {
     @IsString()
     @IsNotEmpty()
     name: string;
 
-    @IsString()
-    @IsNotEmpty()
-    type: string;
+    @IsEnum(CategoryType)
+    type: CategoryType;
 
     @IsOptional()
     @IsBoolean()

@@ -18,7 +18,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'e9b60a8f6991d3a8b27696bc742d25651aa800aa5c205df32d613558d0437d71'>;
+  StorageHashBase<'36c50f27d9544ab03c5aedce94d2bb345f17b715a579e093d8e4cda7f0393405'>;
 export type ExecutionHash = ExecutionHashBase<string>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
@@ -237,7 +237,7 @@ export type FieldOutputTypes = {
       readonly active: CodecTypes['pg/bool@1']['output'];
       readonly id: CodecTypes['pg/int4@1']['output'];
       readonly name: CodecTypes['pg/text@1']['output'];
-      readonly type: CodecTypes['pg/text@1']['output'];
+      readonly type: 'INCOME' | 'EXPENSE';
     };
   };
 };
@@ -247,7 +247,7 @@ export type FieldInputTypes = {
       readonly active: CodecTypes['pg/bool@1']['input'];
       readonly id: CodecTypes['pg/int4@1']['input'];
       readonly name: CodecTypes['pg/text@1']['input'];
-      readonly type: CodecTypes['pg/text@1']['input'];
+      readonly type: 'INCOME' | 'EXPENSE';
     };
   };
 };
@@ -257,7 +257,7 @@ export type StorageColumnTypes = {
       readonly active: CodecTypes['pg/bool@1']['output'];
       readonly id: CodecTypes['pg/int4@1']['output'];
       readonly name: CodecTypes['pg/text@1']['output'];
-      readonly type: CodecTypes['pg/text@1']['output'];
+      readonly type: 'INCOME' | 'EXPENSE';
     };
   };
 };
@@ -267,7 +267,7 @@ export type StorageColumnInputTypes = {
       readonly active: CodecTypes['pg/bool@1']['input'];
       readonly id: CodecTypes['pg/int4@1']['input'];
       readonly name: CodecTypes['pg/text@1']['input'];
-      readonly type: CodecTypes['pg/text@1']['input'];
+      readonly type: 'INCOME' | 'EXPENSE';
     };
   };
 };
@@ -277,7 +277,7 @@ export namespace Models {
     active: CodecTypes['pg/bool@1']['output'];
     id: CodecTypes['pg/int4@1']['output'];
     name: CodecTypes['pg/text@1']['output'];
-    type: CodecTypes['pg/text@1']['output'];
+    type: 'INCOME' | 'EXPENSE';
     readonly [RelationKeys]?: never;
   };
 }
@@ -347,6 +347,12 @@ type ContractBase = Omit<
               foreignKeys: readonly [];
             };
           };
+          readonly valueSet: {
+            readonly CategoryType: {
+              readonly kind: 'valueSet';
+              readonly values: readonly ['INCOME', 'EXPENSE'];
+            };
+          };
         };
       };
     };
@@ -394,6 +400,21 @@ type ContractBase = Omit<
               };
             };
           };
+        };
+        readonly enum: {
+          readonly CategoryType: {
+            readonly codecId: 'pg/text@1';
+            readonly members: readonly [
+              { readonly name: 'INCOME'; readonly value: 'INCOME' },
+              { readonly name: 'EXPENSE'; readonly value: 'EXPENSE' },
+            ];
+          };
+        };
+        readonly enumMemberTypes?: {
+          readonly CategoryType: readonly [
+            { readonly name: 'INCOME'; readonly value: 'INCOME' },
+            { readonly name: 'EXPENSE'; readonly value: 'EXPENSE' },
+          ];
         };
       };
     };

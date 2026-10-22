@@ -1,8 +1,13 @@
 // use prisma-8
 
+enum CategoryType {
+  INCOME
+  EXPENSE
+}
+
 model Category {
   id        Int      @id @default(autoincrement())
   name      String
-  type      String
+  type      CategoryType
   active    Boolean @default(true)
 }

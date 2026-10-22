@@ -110,32 +110,32 @@
 ## Etapa 2.1 — Guardar dados de verdade
 **Entrega:** dados sobrevivem ao reinício.
 
-- [ ] Escolher armazenamento persistente (um banco relacional é uma boa opção).
-- [ ] Criar tabelas/coleções de categorias e lançamentos.
-- [ ] Mapear o relacionamento entre categoria e lançamento.
-- [ ] Criar uma camada responsável por salvar e consultar dados.
-- [ ] Testar reinício sem perda de dados.
-- [ ] Definir como executar o armazenamento localmente.
+- [X] Escolher armazenamento persistente (um banco relacional é uma boa opção).
+- [X] Criar tabelas/coleções de categorias e lançamentos.
+- [X] Mapear o relacionamento entre categoria e lançamento.
+- [X] Criar uma camada responsável por salvar e consultar dados.
+- [X] Testar reinício sem perda de dados.
+- [X] Definir como executar o armazenamento localmente.
 
 **Aprendizado:** persistência, chaves, relacionamentos e consultas.
 
 ## Etapa 2.2 — Evoluir o esquema com segurança
 **Entrega:** primeira migração versionada.
 
-- [ ] Criar migração inicial do esquema.
-- [ ] Adicionar um novo campo usando outra migração.
-- [ ] Testar migrações em banco vazio.
-- [ ] Testar migrações em banco com dados existentes.
-- [ ] Documentar backup antes de mudanças destrutivas.
+- [X] Criar migração inicial do esquema.
+- [X] Adicionar um novo campo usando outra migração.
+- [X] Testar migrações em banco vazio.
+- [X] Testar migrações em banco com dados existentes.
+- [X] Documentar backup antes de mudanças destrutivas.
 
 ## Etapa 2.3 — Separar responsabilidades
 **Entrega:** código organizado sem excesso de camadas.
 
-- [ ] Separar entrada/saída, regras de negócio e acesso a dados.
-- [ ] Evitar regras financeiras diretamente nos endpoints ou na interface.
-- [ ] Padronizar respostas de sucesso e erro.
-- [ ] Criar erros específicos para recurso não encontrado e entrada inválida.
-- [ ] Refatorar um fluxo existente sem mudar seu comportamento.
+- [X] Separar entrada/saída, regras de negócio e acesso a dados.
+- [X] Evitar regras financeiras diretamente nos endpoints ou na interface.
+- [X] Padronizar respostas de sucesso e erro.
+- [X] Criar erros específicos para recurso não encontrado e entrada inválida.
+- [X] Refatorar um fluxo existente sem mudar seu comportamento.
 
 **Aprendizado:** separação de responsabilidades e refatoração.
 
@@ -146,12 +146,12 @@
 ## Etapa 3.1 — Regras monetárias
 **Entrega:** cálculos previsíveis.
 
-- [ ] Usar representação decimal exata ou unidades inteiras (centavos), nunca ponto flutuante binário para valores monetários.
-- [ ] Definir moeda e política de arredondamento.
+- [X] Usar representação decimal exata ou unidades inteiras (centavos), nunca ponto flutuante binário para valores monetários.
+- [X] Definir moeda e política de arredondamento.
 - [ ] Testar `0,10 + 0,20 = 0,30`.
 - [ ] Definir o significado de valor positivo/negativo no domínio.
-- [ ] Testar datas, fuso horário e limites de período.
-- [ ] Evitar duplicar cálculos financeiros em vários lugares.
+- [X] Testar datas, fuso horário e limites de período.
+- [X] Evitar duplicar cálculos financeiros em vários lugares.
 
 ## Etapa 3.2 — Testes de verdade
 **Entrega:** suíte inicial de testes automatizados.

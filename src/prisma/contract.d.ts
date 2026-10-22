@@ -18,7 +18,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'3fe4dad695d50f906541db1de01d58bf89fb9cb91f9dbbb13e29025cabf3fd6a'>;
+  StorageHashBase<'e9b60a8f6991d3a8b27696bc742d25651aa800aa5c205df32d613558d0437d71'>;
 export type ExecutionHash = ExecutionHashBase<string>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
@@ -236,8 +236,8 @@ export type FieldOutputTypes = {
     readonly Category: {
       readonly active: CodecTypes['pg/bool@1']['output'];
       readonly id: CodecTypes['pg/int4@1']['output'];
-      readonly name: CodecTypes['pg/text@1']['output'] | null;
-      readonly type: CodecTypes['pg/text@1']['output'] | null;
+      readonly name: CodecTypes['pg/text@1']['output'];
+      readonly type: CodecTypes['pg/text@1']['output'];
     };
   };
 };
@@ -246,8 +246,8 @@ export type FieldInputTypes = {
     readonly Category: {
       readonly active: CodecTypes['pg/bool@1']['input'];
       readonly id: CodecTypes['pg/int4@1']['input'];
-      readonly name: CodecTypes['pg/text@1']['input'] | null;
-      readonly type: CodecTypes['pg/text@1']['input'] | null;
+      readonly name: CodecTypes['pg/text@1']['input'];
+      readonly type: CodecTypes['pg/text@1']['input'];
     };
   };
 };
@@ -256,8 +256,8 @@ export type StorageColumnTypes = {
     readonly Category: {
       readonly active: CodecTypes['pg/bool@1']['output'];
       readonly id: CodecTypes['pg/int4@1']['output'];
-      readonly name: CodecTypes['pg/text@1']['output'] | null;
-      readonly type: CodecTypes['pg/text@1']['output'] | null;
+      readonly name: CodecTypes['pg/text@1']['output'];
+      readonly type: CodecTypes['pg/text@1']['output'];
     };
   };
 };
@@ -266,8 +266,8 @@ export type StorageColumnInputTypes = {
     readonly Category: {
       readonly active: CodecTypes['pg/bool@1']['input'];
       readonly id: CodecTypes['pg/int4@1']['input'];
-      readonly name: CodecTypes['pg/text@1']['input'] | null;
-      readonly type: CodecTypes['pg/text@1']['input'] | null;
+      readonly name: CodecTypes['pg/text@1']['input'];
+      readonly type: CodecTypes['pg/text@1']['input'];
     };
   };
 };
@@ -276,8 +276,8 @@ export namespace Models {
   export type public_Category = {
     active: CodecTypes['pg/bool@1']['output'];
     id: CodecTypes['pg/int4@1']['output'];
-    name: CodecTypes['pg/text@1']['output'] | null;
-    type: CodecTypes['pg/text@1']['output'] | null;
+    name: CodecTypes['pg/text@1']['output'];
+    type: CodecTypes['pg/text@1']['output'];
     readonly [RelationKeys]?: never;
   };
 }
@@ -312,6 +312,10 @@ type ContractBase = Omit<
                   readonly dataType: 'pg/bool';
                   readonly codecId: 'pg/bool@1';
                   readonly nullable: false;
+                  readonly default: {
+                    readonly kind: 'literal';
+                    readonly value: DefaultLiteralValue<'pg/bool@1', true>;
+                  };
                   readonly many: false;
                 };
                 readonly id: {
@@ -327,13 +331,13 @@ type ContractBase = Omit<
                 readonly name: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
-                  readonly nullable: true;
+                  readonly nullable: false;
                   readonly many: false;
                 };
                 readonly type: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
-                  readonly nullable: true;
+                  readonly nullable: false;
                   readonly many: false;
                 };
               };
@@ -370,11 +374,11 @@ type ContractBase = Omit<
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
               };
               readonly name: {
-                readonly nullable: true;
+                readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
               readonly type: {
-                readonly nullable: true;
+                readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
             };

@@ -80,14 +80,14 @@
 ## Etapa 1.2 — CRUD de lançamentos
 **Entrega:** cadastro completo de receitas e despesas.
 
-- [ ] Criar lançamento com descrição, valor, tipo, data e categoria.
-- [ ] Listar e consultar lançamentos.
-- [ ] Editar lançamento.
-- [ ] Excluir lançamento com comportamento documentado.
-- [ ] Rejeitar valores zero ou negativos para o campo de valor absoluto.
-- [ ] Rejeitar categoria inexistente ou incompatível com o tipo.
-- [ ] Implementar filtros por tipo e período.
-- [ ] Adicionar ordenação por data.
+- [X] Criar lançamento com descrição, valor, tipo, data e categoria.
+- [X] Listar e consultar lançamentos.
+- [X] Editar lançamento.
+- [X] Excluir lançamento com comportamento documentado.
+- [X] Rejeitar valores zero ou negativos para o campo de valor absoluto.
+- [X] Rejeitar categoria inexistente ou incompatível com o tipo.
+- [X] Implementar filtros por tipo e período.
+- [X] Adicionar ordenação por data.
 
 **Critério de conclusão:** executar manualmente criação, leitura, edição, exclusão e entradas inválidas.
 

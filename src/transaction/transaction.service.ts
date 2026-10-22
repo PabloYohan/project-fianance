@@ -3,6 +3,7 @@ import { CreateTransactionDto } from './dto/create-transaction.dto.js';
 import { UpdateTransactionDto } from './dto/update-transaction.dto.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { Money } from '../common/money.type.js';
+import { FilterTransactionDto } from './dto/filter-transaction.dto.js';
 
 @Injectable()
 export class TransactionService {
@@ -31,24 +32,85 @@ export class TransactionService {
 
     const date = createTransactionDto.date ? new Date(createTransactionDto.date) : new Date();
 
-    const transaction = await this.prisma.db.orm.public.Transaction.create({categoryId, description, value: value as Money, date});
+    return this.prisma.db.orm.public.Transaction.create({categoryId, description, value: value as Money, date});
+
+  }
+
+  async findAll(filter: FilterTransactionDto) {
+    const {startDate, endDate, categoryId} = filter;
+
+    let query = this.prisma.db.orm.public.Transaction;
+
+    if(startDate){
+      query = query.where((time) => 
+        time.date.gte(new Date(`${startDate}T00:00:00.000Z`))
+      );
+    }
+
+    if(endDate){
+      const nextday = new Date(`${endDate}T00:00:00.000Z`)
+      nextday.setUTCDate(nextday.getUTCDate() + 1);
+
+      query = query.where((time) => time.date.lt(nextday));
+    }
+
+    if(categoryId !== undefined){
+      query = query.where({categoryId});
+    }
+
+    return query.orderBy((time) => time.date.desc()).all();
+  }
+
+  async findOne(id: string) {
+    const transaction = await this.prisma.db.orm.public.Transaction.where({id}).first();
+
+    if(!transaction){
+      throw new NotFoundException(
+        `Não foi possível encontrar o lançamento com id ${id}`
+      );
+    }
+
+    return transaction;
+  }
+
+  async update(id: string, updateTransactionDto: UpdateTransactionDto) {
+
+    if(Object.keys(updateTransactionDto).length === 0){
+      throw new BadRequestException(
+        `Informe pelo menos 1 campo para a alteração`
+      );
+    }
+
+    const {value, date, ...rest} = updateTransactionDto; 
+
+    const transaction = await this.prisma.db.orm.public.Transaction.where({id}).update({
+      ...rest,
+      ...(value !== undefined && {
+        value: value as Money
+      }),
+      ...(date !== undefined && {
+        date: new Date(date)
+      })
+    });
+
+    if(!transaction){
+      throw new NotFoundException(
+        `Não foi possível encontrar o lançamento com id ${id}`
+      );
+    }
 
 
   }
 
-  findAll() {
-    return `This action returns all transaction`;
-  }
+  async remove(id: string) {
+    const transaction = await this.prisma.db.orm.public.Transaction.where({id}).delete();
 
-  findOne(id: number) {
-    return `This action returns a #${id} transaction`;
-  }
+    if(!transaction){
+      throw new NotFoundException(
+        `Não foi encontrada a transaction de id ${id}`
+      )
+    }
 
-  update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return `This action updates a #${id} transaction`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} transaction`;
+    return transaction;
   }
 }

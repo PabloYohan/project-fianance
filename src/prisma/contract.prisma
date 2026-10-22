@@ -10,4 +10,15 @@ model Category {
   name      String
   type      CategoryType
   active    Boolean @default(true)
+
+  transactions Transaction[]
+}
+
+model Transaction {
+  id          String    @id @default(uuid()) 
+  description String
+  value       Numeric(15, 2)
+  date        DateTime
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  categoryId  Int       
 }

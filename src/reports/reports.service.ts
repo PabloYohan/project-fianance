@@ -12,8 +12,27 @@ export class ReportsService {
     private readonly prisma : PrismaService
   ){}
 
-  getAllExpensesForMonth(filter: ExpenseMonthlyDto) {
-    
+  async getAllExpensesForMonth(filter: ExpenseMonthlyDto) {
+    const { month, year } = filter;
+
+    const startDate = new Date(Date.UTC(year, month - 1, 1));
+    const endDate = new Date(Date.UTC(year, month, 1));
+
+    const expenses = await this.prisma.db.orm.public.Transaction
+                    .where((t) => t.date.gte(startDate))
+                    .where((t) => t.date.lt(endDate))
+                    .where((type) => type.category.some(c => c.type.eq("EXPENSE")))
+                    .all();
+
+    const totalCents = expenses.reduce((acc, t) => {
+      const [integer, decimal] = t.value.split('.');
+      const cents = BigInt(integer) * 100n + BigInt(decimal);
+      return acc + cents;
+    }, 0n);
+
+    const expenseSum = `${totalCents/100n}.${(totalCents%100n).toString().padStart(2, '0')}`;
+
+    return {month, year, totalExpenses: expenseSum, transactionsCount: expenses.length, transactions: expenses}
   }
 
   findOne(id: number) {

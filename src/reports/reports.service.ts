@@ -18,21 +18,22 @@ export class ReportsService {
     const startDate = new Date(Date.UTC(year, month - 1, 1));
     const endDate = new Date(Date.UTC(year, month, 1));
 
-    const expenses = await this.prisma.db.orm.public.Transaction
+    const query = this.prisma.db.orm.public.Transaction
                     .where((t) => t.date.gte(startDate))
                     .where((t) => t.date.lt(endDate))
-                    .where((type) => type.category.some(c => c.type.eq("EXPENSE")))
-                    .all();
+                    .where((type) => type.category.some(c => c.type.eq("EXPENSE")));
 
-    const totalCents = expenses.reduce((acc, t) => {
-      const [integer, decimal] = t.value.split('.');
-      const cents = BigInt(integer) * 100n + BigInt(decimal);
-      return acc + cents;
-    }, 0n);
 
-    const expenseSum = `${totalCents/100n}.${(totalCents%100n).toString().padStart(2, '0')}`;
+    const [summary, expenses] = await Promise.all([
+      query.aggregate((agg) => ({
+        total: agg.sum('value'),
+        count: agg.count()
+      })),
 
-    return {month, year, totalExpenses: expenseSum, transactionsCount: expenses.length, transactions: expenses}
+      query.orderBy(t => t.date.desc()).all()
+    ])
+
+    return {month, year, totalExpenses: summary.total ?? "0.00", transactionsCount: summary.count, transactions: expenses}
   }
 
   findOne(id: number) {
